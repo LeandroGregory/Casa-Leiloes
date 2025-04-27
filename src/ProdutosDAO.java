@@ -1,9 +1,4 @@
 
-/**
- *
- * @author Adm
- */
-
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
@@ -34,7 +29,7 @@ public class ProdutosDAO {
             
             prep.execute();
             
-            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso! ");
+            JOptionPane.showMessageDialog(null, " O Produto foi cadastrado com sucesso! ");
            
         }       
         
