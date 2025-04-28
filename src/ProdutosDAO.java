@@ -35,19 +35,42 @@ public class ProdutosDAO {
         
         catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, "Erro ao cadastrar o produto");
-        }
-        
-        
-        
+        }      
+                
     }
     
-    public ArrayList<ProdutosDTO> listarProdutos(){
+    public ArrayList<ProdutosDTO> listarProdutos(){        
         
-        return listagem;
+        try {
+            
+            String sql = "SELECT * FROM produtos";
+        
+            conn = new conectaDAO().connectDB();
+            
+                    prep = this.conn.prepareStatement(sql);                                   
+                    
+                    ResultSet rs = prep.executeQuery();        
+                   
+                    while (rs.next()) {
+                        ProdutosDTO produtos = new ProdutosDTO();
+                                                
+                      produtos.setId(rs.getInt("id"));
+                      produtos.setNome(rs.getString("nome"));
+                      produtos.setValor(rs.getDouble("valor"));
+                      produtos.setStatus(rs.getString("status"));                                       
+                      
+                        
+                        listagem.add(produtos);
+                    }
+                    return listagem;
+                                      
+                }     
+        catch (SQLException e) {
+                    return null;
+                }
+        
+       
     }
-    
-    
-    
         
 }
 
