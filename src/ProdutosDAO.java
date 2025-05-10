@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class ProdutosDAO {
@@ -83,10 +84,37 @@ public class ProdutosDAO {
         prep.setInt(2, idProduto);       
         
         
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Erro ao atualizar o produto: " + e.getMessage());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar o produto: " + e.getMessage());
+        }
     }
-}
+    
+       
+    public List<ProdutosDTO> listarProdutosVendidos() {
+    String sql = "SELECT * FROM produtos WHERE status = 'Vendido'";
+
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            List<ProdutosDTO> listaProdutos = new ArrayList<>();
+
+            while (rs.next()) {
+                ProdutosDTO produtos = new ProdutosDTO();
+                produtos.setNome(rs.getString("nome"));
+                produtos.setValor(rs.getDouble("valor"));
+                produtos.setStatus(rs.getString("status"));
+
+                listaProdutos.add(produtos);
+            }
+            return listaProdutos;
+
+        } catch (Exception e) {
+
+            return null;
+        }
+    }
+
         
-}
+    }
 
