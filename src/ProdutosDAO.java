@@ -90,14 +90,14 @@ public class ProdutosDAO {
     }
     
        
-    public List<ProdutosDTO> listarProdutosVendidos() {
+    public ArrayList<ProdutosDTO> listarProdutosVendidos() {
     String sql = "SELECT * FROM produtos WHERE status = 'Vendido'";
 
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
-            List<ProdutosDTO> listaProdutos = new ArrayList<>();
+            ArrayList<ProdutosDTO> listaProdutos = new ArrayList<>();
 
             while (rs.next()) {
                 ProdutosDTO produtos = new ProdutosDTO();
