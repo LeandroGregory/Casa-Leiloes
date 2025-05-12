@@ -94,13 +94,18 @@ public class ProdutosDAO {
     String sql = "SELECT * FROM produtos WHERE status = 'Vendido'";
 
         try {
-            PreparedStatement stmt = this.conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+            conn = new conectaDAO().connectDB();
+            
+            prep = this.conn.prepareStatement(sql);
+            
+            
+            ResultSet rs = prep.executeQuery();
 
             ArrayList<ProdutosDTO> listaProdutos = new ArrayList<>();
 
             while (rs.next()) {
                 ProdutosDTO produtos = new ProdutosDTO();
+                produtos.setId(rs.getInt("id"));
                 produtos.setNome(rs.getString("nome"));
                 produtos.setValor(rs.getDouble("valor"));
                 produtos.setStatus(rs.getString("status"));
